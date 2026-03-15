@@ -8,28 +8,32 @@
   <meta name="apple-mobile-web-app-title" content="TranscribeIt">
   <meta name="theme-color" content="#0d1117">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="TranscribeIt">
   <link id="manifest-link" rel="manifest">
   <title>TranscribeIt</title>
   <style>
     :root {
-      --bg: #0d1117;
+      --bg:      #0d1117;
       --surface: #161b22;
-      --surface2: #21262d;
-      --border: #30363d;
-      --text: #e6edf3;
-      --muted: #8b949e;
-      --gold: #f0b429;
-      --gold-dark: #9a7410;
-      --red: #f85149;
-      --green: #3fb950;
-      --blue: #58a6ff;
-      --r: 12px;
-      --safe-top: env(safe-area-inset-top, 0px);
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --surf2:   #21262d;
+      --border:  #30363d;
+      --text:    #e6edf3;
+      --muted:   #8b949e;
+      --gold:    #f0b429;
+      --gold-d:  #b8860b;
+      --red:     #f85149;
+      --green:   #3fb950;
+      --blue:    #58a6ff;
+      --r:       12px;
+      --st:      env(safe-area-inset-top, 0px);
+      --sb:      env(safe-area-inset-bottom, 0px);
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
 
     html { height: 100%; }
 
@@ -44,18 +48,18 @@
     }
 
     /* ── Header ── */
-    .header {
+    .hdr {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(13,17,23,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(13,17,23,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: calc(var(--safe-top) + 10px) 16px 10px;
+      padding: calc(var(--st) + 10px) 16px 10px;
     }
 
     .logo {
@@ -68,21 +72,18 @@
       letter-spacing: -0.3px;
     }
 
-    .logo-icon {
-      width: 34px;
-      height: 34px;
-      background: linear-gradient(135deg, #f0b429 0%, #d97706 100%);
+    .logo-box {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, #f0b429, #d97706);
       border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
-    .logo-icon svg { color: #0d1117; }
-
-    .gear-btn {
-      width: 40px;
-      height: 40px;
+    .gear {
+      width: 40px; height: 40px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 50%;
@@ -91,42 +92,37 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.15s, transform 0.15s;
+      transition: background .15s, transform .15s;
     }
-    .gear-btn:active { background: var(--surface2); transform: scale(0.9); }
+    .gear:active { background: var(--surf2); transform: scale(.9); }
 
     /* ── Main ── */
     .main {
       max-width: 580px;
       margin: 0 auto;
-      padding: calc(var(--safe-top) + 74px) 16px calc(var(--safe-bottom) + 24px);
+      padding: calc(var(--st) + 74px) 16px calc(var(--sb) + 28px);
       display: flex;
       flex-direction: column;
       gap: 14px;
     }
 
-    /* ── Install Banner ── */
+    /* ── Banner ── */
     .banner {
-      background: linear-gradient(135deg, var(--surface) 0%, #1c2433 100%);
-      border: 1px solid rgba(240,180,41,0.35);
+      background: linear-gradient(135deg, var(--surface), #1c2433);
+      border: 1px solid rgba(240,180,41,.4);
       border-radius: var(--r);
       padding: 14px 40px 14px 14px;
       position: relative;
       display: none;
     }
     .banner-title { font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
-    .banner-body { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .banner-body  { font-size: 13px; color: var(--muted); line-height: 1.5; }
     .banner-body strong { color: var(--text); }
-    .banner-close {
-      position: absolute;
-      top: 10px; right: 10px;
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 18px;
-      cursor: pointer;
-      padding: 4px;
-      line-height: 1;
+    .banner-x {
+      position: absolute; top: 10px; right: 10px;
+      background: none; border: none;
+      color: var(--muted); font-size: 18px;
+      cursor: pointer; padding: 4px; line-height: 1;
     }
 
     /* ── Card ── */
@@ -136,20 +132,16 @@
       border-radius: var(--r);
       padding: 18px;
     }
-
-    .card-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: var(--muted);
-      margin-bottom: 10px;
+    .card-lbl {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .09em;
+      color: var(--muted); margin-bottom: 10px;
     }
 
-    /* ── URL Row ── */
+    /* ── URL input ── */
     .url-row { display: flex; gap: 8px; }
 
-    .url-input {
+    .url-in {
       flex: 1;
       background: var(--bg);
       border: 1.5px solid var(--border);
@@ -158,15 +150,15 @@
       font-size: 15px;
       color: var(--text);
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color .2s;
       -webkit-appearance: none;
       min-width: 0;
     }
-    .url-input:focus { border-color: var(--gold); }
-    .url-input::placeholder { color: var(--muted); }
+    .url-in:focus { border-color: var(--gold); }
+    .url-in::placeholder { color: var(--muted); }
 
-    .icon-btn {
-      background: var(--surface2);
+    .paste-btn {
+      background: var(--surf2);
       border: 1.5px solid var(--border);
       border-radius: 10px;
       padding: 0 14px;
@@ -178,33 +170,28 @@
       font-size: 13px;
       font-weight: 600;
       white-space: nowrap;
-      transition: all 0.15s;
+      transition: all .15s;
       flex-shrink: 0;
     }
-    .icon-btn:active { background: var(--border); transform: scale(0.95); }
+    .paste-btn:active { background: var(--border); transform: scale(.95); }
 
     /* ── Platform badge ── */
-    .badge-row { margin-top: 10px; display: none; }
-
+    .badge-row { margin-top: 10px; display: none; align-items: center; gap: 8px; }
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 20px;
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 700;
+      padding: 4px 10px; border-radius: 20px;
     }
-    .badge.yt { background: rgba(255,80,80,0.15); color: #ff6b6b; }
-    .badge.ig { background: rgba(225,48,108,0.15); color: #e1306c; }
-    .badge.fb { background: rgba(24,119,242,0.15); color: #58a6ff; }
-    .badge.other { background: rgba(139,148,158,0.15); color: var(--muted); }
+    .badge.yt { background: rgba(255,80,80,.15); color: #ff6b6b; }
+    .badge.ig { background: rgba(225,48,108,.15); color: #e1306c; }
+    .badge.fb { background: rgba(24,119,242,.15);  color: var(--blue); }
+    .badge.ok { background: rgba(63,185,80,.12);   color: var(--green); }
 
-    /* ── Note box ── */
+    /* ── Note ── */
     .note {
       margin-top: 10px;
-      background: rgba(88,166,255,0.07);
-      border: 1px solid rgba(88,166,255,0.2);
+      background: rgba(88,166,255,.07);
+      border: 1px solid rgba(88,166,255,.2);
       border-radius: 9px;
       padding: 11px 13px;
       font-size: 13px;
@@ -212,81 +199,64 @@
       line-height: 1.55;
       display: none;
     }
-    .note strong { display: block; margin-bottom: 3px; color: var(--blue); }
+    .note strong { display: block; margin-bottom: 2px; }
     .note a { color: var(--gold); text-decoration: none; }
 
     /* ── Divider ── */
     .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 500;
+      display: flex; align-items: center; gap: 12px;
+      color: var(--muted); font-size: 13px; font-weight: 500;
     }
     .divider::before, .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+      content: ''; flex: 1; height: 1px; background: var(--border);
     }
 
-    /* ── Upload area ── */
-    .upload-zone {
+    /* ── Upload zone ── */
+    .up-zone {
       border: 2px dashed var(--border);
       border-radius: var(--r);
-      padding: 28px 20px;
+      padding: 26px 20px;
       text-align: center;
       cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
+      transition: border-color .2s, background .2s;
       color: var(--muted);
     }
-    .upload-zone:active, .upload-zone.drag-over {
-      border-color: var(--gold);
-      background: rgba(240,180,41,0.04);
-    }
-    .upload-zone svg { width: 36px; height: 36px; color: var(--gold); margin-bottom: 8px; }
-    .upload-zone-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-    .upload-zone-sub { font-size: 12px; color: var(--muted); }
+    .up-zone:active, .up-zone.drag { border-color: var(--gold); background: rgba(240,180,41,.04); }
+    .up-zone svg { width: 34px; height: 34px; color: var(--gold); margin-bottom: 7px; }
+    .up-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .up-sub   { font-size: 12px; color: var(--muted); }
 
-    /* ── Options ── */
-    .options-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    /* ── Options row ── */
+    .opts {
+      display: flex; align-items: center; justify-content: space-between;
       padding: 14px 0;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
-    .options-label { font-size: 15px; font-weight: 500; }
+    .opts-lbl { font-size: 15px; font-weight: 500; }
 
     /* iOS-style toggle */
-    .toggle { position: relative; width: 51px; height: 31px; }
-    .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
-    .toggle-track {
-      position: absolute;
-      inset: 0;
-      background: var(--surface2);
-      border: 2px solid var(--border);
-      border-radius: 31px;
-      cursor: pointer;
-      transition: background 0.3s, border-color 0.3s;
+    .tog { position: relative; width: 51px; height: 31px; }
+    .tog input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .tog-track {
+      position: absolute; inset: 0;
+      background: var(--surf2); border: 2px solid var(--border);
+      border-radius: 31px; cursor: pointer;
+      transition: background .3s, border-color .3s;
     }
-    .toggle input:checked + .toggle-track { background: var(--gold); border-color: var(--gold); }
-    .toggle-thumb {
-      position: absolute;
-      top: 4px; left: 4px;
+    .tog input:checked + .tog-track { background: var(--gold); border-color: var(--gold); }
+    .tog-thumb {
+      position: absolute; top: 4px; left: 4px;
       width: 23px; height: 23px;
-      background: #fff;
-      border-radius: 50%;
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.35);
+      background: #fff; border-radius: 50%;
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 2px 5px rgba(0,0,0,.35);
       pointer-events: none;
     }
-    .toggle input:checked ~ .toggle-thumb { transform: translateX(20px); }
+    .tog input:checked ~ .tog-thumb { transform: translateX(20px); }
 
     /* ── Submit ── */
-    .submit-btn {
+    .go-btn {
       width: 100%;
       background: var(--gold);
       color: #0d1117;
@@ -296,263 +266,219 @@
       font-size: 17px;
       font-weight: 800;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      transition: all 0.15s;
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      transition: all .15s;
       -webkit-appearance: none;
-      letter-spacing: 0.2px;
+      letter-spacing: .2px;
     }
-    .submit-btn:active:not(:disabled) { transform: scale(0.98); background: #d4a017; }
-    .submit-btn:disabled { opacity: 0.38; cursor: not-allowed; }
+    .go-btn:active:not(:disabled) { transform: scale(.98); background: #d4a017; }
+    .go-btn:disabled { opacity: .38; cursor: not-allowed; }
 
-    /* ── Status card ── */
+    /* ── Status ── */
     .status-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--r);
       padding: 18px;
-      display: none;
-      align-items: center;
-      gap: 16px;
+      display: none; align-items: center; gap: 16px;
     }
     .status-card.show { display: flex; }
 
     .spinner {
-      width: 34px; height: 34px;
+      width: 32px; height: 32px;
       border: 3px solid var(--border);
       border-top-color: var(--gold);
       border-radius: 50%;
-      animation: spin 0.75s linear infinite;
+      animation: spin .75s linear infinite;
       flex-shrink: 0;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .status-info { flex: 1; min-width: 0; }
-    .status-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
-    .status-sub { font-size: 13px; color: var(--muted); }
-
-    .progress-bar {
-      height: 3px;
-      background: var(--border);
-      border-radius: 3px;
-      overflow: hidden;
-      margin-top: 10px;
-    }
-    .progress-fill {
+    .s-info { flex: 1; min-width: 0; }
+    .s-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+    .s-sub   { font-size: 13px; color: var(--muted); }
+    .prog-bar { height: 3px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 10px; }
+    .prog-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+      background: linear-gradient(90deg, var(--gold-d), var(--gold));
       border-radius: 3px;
-      transition: width 0.6s ease;
+      transition: width .6s ease;
       width: 0%;
     }
 
-    /* ── Error card ── */
-    .error-card {
-      background: rgba(248,81,73,0.08);
-      border: 1px solid rgba(248,81,73,0.3);
+    /* ── Error ── */
+    .err-card {
+      background: rgba(248,81,73,.08);
+      border: 1px solid rgba(248,81,73,.3);
       border-radius: var(--r);
       padding: 16px;
-      display: none;
-      gap: 10px;
-      align-items: flex-start;
+      display: none; gap: 10px; align-items: flex-start;
     }
-    .error-card.show { display: flex; }
-    .error-icon { color: var(--red); flex-shrink: 0; margin-top: 1px; }
-    .error-body { font-size: 14px; color: #f97b72; line-height: 1.55; }
-    .error-body a { color: var(--gold); }
+    .err-card.show { display: flex; }
+    .err-icon { color: var(--red); flex-shrink: 0; margin-top: 1px; }
+    .err-body { font-size: 14px; color: #f97b72; line-height: 1.55; }
+    .err-body a { color: var(--gold); }
 
-    /* ── Transcript card ── */
-    .transcript-card {
+    /* ── Transcript ── */
+    .tx-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--r);
       padding: 18px;
       display: none;
     }
-    .transcript-card.show { display: block; }
+    .tx-card.show { display: block; }
 
-    .transcript-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .tx-hdr {
+      display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 14px;
     }
-
-    .transcript-title {
-      font-size: 13px;
-      font-weight: 700;
+    .tx-title {
+      font-size: 11px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .09em;
       color: var(--gold);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      display: flex; align-items: center; gap: 6px;
     }
+    .tx-actions { display: flex; gap: 8px; }
 
-    .copy-btn {
-      background: var(--surface2);
+    .act-btn {
+      background: var(--surf2);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 7px 14px;
-      font-size: 13px;
-      font-weight: 600;
+      padding: 7px 13px;
+      font-size: 13px; font-weight: 600;
       color: var(--muted);
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.15s;
+      display: flex; align-items: center; gap: 5px;
+      transition: all .15s;
     }
-    .copy-btn:active { background: var(--border); transform: scale(0.95); }
-    .copy-btn.ok { color: var(--green); border-color: var(--green); }
+    .act-btn:active { background: var(--border); transform: scale(.95); }
+    .act-btn.ok { color: var(--green); border-color: var(--green); }
 
-    .transcript-body {
-      font-size: 15px;
-      line-height: 1.75;
+    /* Chunk display — CSS-driven timestamp toggle */
+    .tx-body {
+      font-size: 15px; line-height: 1.75;
       color: var(--text);
       max-height: 55vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       word-break: break-word;
     }
-
-    .ts-chunk { margin-bottom: 18px; }
-    .ts-label {
+    .chunk { margin-bottom: 16px; }
+    .ts {
       display: inline-block;
-      font-size: 11px;
-      font-weight: 800;
+      font-size: 11px; font-weight: 800;
       font-family: 'SF Mono', 'Courier New', monospace;
+      font-variant-numeric: tabular-nums;
       color: var(--gold);
-      background: rgba(240,180,41,0.1);
+      background: rgba(240,180,41,.1);
       border-radius: 4px;
-      padding: 1px 7px;
-      margin-bottom: 5px;
-      letter-spacing: 0.04em;
+      padding: 1px 7px; margin-bottom: 4px;
     }
-    .ts-text { font-size: 15px; line-height: 1.7; }
+    .chunk-txt { font-size: 15px; line-height: 1.7; }
+
+    /* When timestamps are off, hide all .ts spans via data attribute */
+    .tx-body[data-ts="false"] .ts { display: none; }
+    .tx-body[data-ts="false"] .chunk { margin-bottom: 6px; }
 
     /* ── Settings drawer ── */
     .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.55);
       backdrop-filter: blur(3px);
       -webkit-backdrop-filter: blur(3px);
-      z-index: 200;
-      display: none;
+      z-index: 200; display: none;
     }
     .overlay.show { display: block; }
 
     .drawer {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
+      position: fixed; bottom: 0; left: 0; right: 0;
       z-index: 201;
       background: var(--surface);
       border-top: 1px solid var(--border);
       border-radius: 20px 20px 0 0;
-      padding: 0 20px calc(var(--safe-bottom) + 24px);
+      padding: 0 20px calc(var(--sb) + 28px);
       transform: translateY(100%);
-      transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
-      max-width: 580px;
-      margin: 0 auto;
+      transition: transform .38s cubic-bezier(.4,0,.2,1);
+      max-width: 580px; margin: 0 auto;
     }
     .drawer.open { transform: translateY(0); }
-
-    .drawer-handle {
-      width: 40px;
-      height: 4px;
-      background: var(--border);
-      border-radius: 4px;
-      margin: 14px auto 20px;
+    .d-handle { width: 40px; height: 4px; background: var(--border); border-radius: 4px; margin: 14px auto 20px; }
+    .d-title { font-size: 19px; font-weight: 800; margin-bottom: 20px; }
+    .d-section { margin-bottom: 20px; }
+    .d-section > label {
+      display: block; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .08em;
+      color: var(--muted); margin-bottom: 8px;
     }
-    .drawer-title { font-size: 19px; font-weight: 800; margin-bottom: 22px; }
-    .drawer-section { margin-bottom: 20px; }
-    .drawer-section label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-    .drawer-input {
+    .d-input {
       width: 100%;
-      background: var(--bg);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 13px 14px;
-      font-size: 15px;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s;
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: 13px 14px;
+      font-size: 15px; color: var(--text);
+      outline: none; transition: border-color .2s;
       -webkit-appearance: none;
       font-family: 'SF Mono', 'Courier New', monospace;
     }
-    .drawer-input:focus { border-color: var(--gold); }
-
-    .drawer-hint {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 8px;
-      line-height: 1.55;
+    .d-input:focus { border-color: var(--gold); }
+    .d-hint {
+      font-size: 12px; color: var(--muted);
+      margin-top: 8px; line-height: 1.55;
     }
-    .drawer-hint a { color: var(--gold); text-decoration: none; }
+    .d-hint a { color: var(--gold); text-decoration: none; }
 
-    .drawer-save {
-      width: 100%;
-      background: var(--gold);
-      color: #0d1117;
-      border: none;
-      border-radius: var(--r);
-      padding: 15px;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 0.15s;
-      margin-top: 4px;
+    .d-save {
+      width: 100%; background: var(--gold); color: #0d1117;
+      border: none; border-radius: var(--r);
+      padding: 15px; font-size: 16px; font-weight: 800;
+      cursor: pointer; transition: all .15s; margin-top: 4px;
     }
-    .drawer-save:active { transform: scale(0.98); background: #d4a017; }
+    .d-save:active { transform: scale(.98); background: #d4a017; }
 
     /* ── Toast ── */
     .toast {
       position: fixed;
-      bottom: calc(var(--safe-bottom) + 90px);
-      left: 50%;
-      transform: translateX(-50%) translateY(10px);
-      background: #2a2a2a;
-      color: #fff;
-      padding: 10px 22px;
-      border-radius: 22px;
-      font-size: 14px;
-      font-weight: 500;
-      z-index: 999;
-      opacity: 0;
-      transition: opacity 0.25s, transform 0.25s;
-      white-space: nowrap;
-      pointer-events: none;
+      bottom: calc(var(--sb) + 88px);
+      left: 50%; transform: translateX(-50%) translateY(10px);
+      background: #2a2a2a; color: #fff;
+      padding: 10px 22px; border-radius: 22px;
+      font-size: 14px; font-weight: 500;
+      z-index: 999; opacity: 0;
+      transition: opacity .25s, transform .25s;
+      white-space: nowrap; pointer-events: none;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── AssemblyAI fallback section (file uploads) ── */
+    .aai-note {
+      margin-top: 10px;
+      background: rgba(240,180,41,.07);
+      border: 1px solid rgba(240,180,41,.2);
+      border-radius: 9px;
+      padding: 11px 13px;
+      font-size: 13px;
+      color: #c49a2a;
+      line-height: 1.55;
+      display: none;
+    }
+    .aai-note a { color: var(--gold); }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="header">
+  <header class="hdr">
     <div class="logo">
-      <div class="logo-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <div class="logo-box">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d1117" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
           <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
           <line x1="12" y1="19" x2="12" y2="23"/>
-          <line x1="8" y1="23" x2="16" y2="23"/>
+          <line x1="8"  y1="23" x2="16" y2="23"/>
         </svg>
       </div>
       TranscribeIt
     </div>
-    <button class="gear-btn" onclick="openSettings()" aria-label="Settings">
+    <button class="gear" onclick="openSettings()" aria-label="Settings">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
         <circle cx="12" cy="12" r="3"/>
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
@@ -565,18 +491,18 @@
     <!-- Install banner -->
     <div class="banner" id="installBanner">
       <div class="banner-title">📱 Use as an App</div>
-      <div class="banner-body" id="installBody"></div>
-      <button class="banner-close" onclick="dismissBanner()">✕</button>
+      <div class="banner-body" id="bannerBody"></div>
+      <button class="banner-x" onclick="dismissBanner()">✕</button>
     </div>
 
-    <!-- URL input card -->
+    <!-- URL input -->
     <div class="card">
-      <div class="card-label">Paste Video URL</div>
+      <div class="card-lbl">Paste Video URL</div>
       <div class="url-row">
         <input
           type="url"
           id="urlInput"
-          class="url-input"
+          class="url-in"
           placeholder="YouTube, Instagram, or Facebook URL"
           inputmode="url"
           autocorrect="off"
@@ -584,8 +510,8 @@
           spellcheck="false"
           oninput="onUrlChange()"
         >
-        <button class="icon-btn" onclick="pasteUrl()" title="Paste from clipboard">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <button class="paste-btn" onclick="pasteUrl()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           Paste
         </button>
       </div>
@@ -596,279 +522,189 @@
     <!-- File upload -->
     <div class="divider">or upload a file</div>
 
-    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()" role="button" tabindex="0">
+    <div class="up-zone" id="upZone" onclick="document.getElementById('fileIn').click()" role="button" tabindex="0">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
         <polyline points="17 8 12 3 7 8"/>
         <line x1="12" y1="3" x2="12" y2="15"/>
       </svg>
-      <div class="upload-zone-title" id="uploadTitle">Upload video or audio</div>
-      <div class="upload-zone-sub">MP4, MOV, MP3, M4A, WAV, WebM</div>
+      <div class="up-title" id="upTitle">Upload video or audio</div>
+      <div class="up-sub">MP4, MOV, MP3, M4A, WAV, WebM</div>
     </div>
-    <input type="file" id="fileInput" accept="video/*,audio/*,.mp4,.mov,.mp3,.m4a,.wav,.webm,.ogg" style="display:none" onchange="onFileSelect(event)">
+    <input type="file" id="fileIn" accept="video/*,audio/*,.mp4,.mov,.mp3,.m4a,.wav,.webm,.ogg" style="display:none" onchange="onFile(event)">
 
-    <!-- Timestamp toggle -->
-    <div class="options-row">
-      <span class="options-label">⏱&nbsp; Include timestamps</span>
-      <label class="toggle" aria-label="Toggle timestamps">
+    <div class="aai-note" id="aaiNote">
+      File uploads use <strong>AssemblyAI</strong> — enter your free key in ⚙️ Settings.
+      Get one at <a href="https://www.assemblyai.com" target="_blank">assemblyai.com</a>.
+    </div>
+
+    <!-- Options -->
+    <div class="opts">
+      <span class="opts-lbl">⏱&nbsp; Include timestamps</span>
+      <label class="tog" aria-label="Toggle timestamps">
         <input type="checkbox" id="tsToggle" onchange="onTsToggle()">
-        <div class="toggle-track"></div>
-        <div class="toggle-thumb"></div>
+        <div class="tog-track"></div>
+        <div class="tog-thumb"></div>
       </label>
     </div>
 
-    <!-- Transcribe button -->
-    <button class="submit-btn" id="submitBtn" onclick="startTranscription()" disabled>
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    <!-- Go -->
+    <button class="go-btn" id="goBtn" onclick="run()" disabled>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
       Transcribe
     </button>
 
     <!-- Status -->
     <div class="status-card" id="statusCard">
       <div class="spinner"></div>
-      <div class="status-info">
-        <div class="status-title" id="statusTitle">Processing…</div>
-        <div class="status-sub" id="statusSub">Please wait</div>
-        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="s-info">
+        <div class="s-title" id="sTitle">Processing…</div>
+        <div class="s-sub"   id="sSub">Please wait</div>
+        <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
       </div>
     </div>
 
     <!-- Error -->
-    <div class="error-card" id="errorCard">
-      <span class="error-icon">
+    <div class="err-card" id="errCard">
+      <span class="err-icon">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       </span>
-      <div class="error-body" id="errorBody"></div>
+      <div class="err-body" id="errBody"></div>
     </div>
 
     <!-- Transcript -->
-    <div class="transcript-card" id="transcriptCard">
-      <div class="transcript-header">
-        <div class="transcript-title">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    <div class="tx-card" id="txCard">
+      <div class="tx-hdr">
+        <div class="tx-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           Transcript
         </div>
-        <button class="copy-btn" id="copyBtn" onclick="copyTranscript()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copy
-        </button>
+        <div class="tx-actions">
+          <button class="act-btn" id="copyBtn" onclick="doCopy()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+        </div>
       </div>
-      <div class="transcript-body" id="transcriptBody"></div>
+      <div class="tx-body" id="txBody" data-ts="true"></div>
     </div>
 
   </main>
 
-  <!-- Settings overlay + drawer -->
+  <!-- Settings -->
   <div class="overlay" id="overlay" onclick="closeSettings()"></div>
   <div class="drawer" id="drawer">
-    <div class="drawer-handle"></div>
-    <div class="drawer-title">⚙️ Settings</div>
-    <div class="drawer-section">
-      <label for="apiKeyInput">AssemblyAI API Key</label>
-      <input type="password" id="apiKeyInput" class="drawer-input" placeholder="Enter your free API key…" autocomplete="off" spellcheck="false">
-      <p class="drawer-hint">
-        Required for Instagram, Facebook, and file uploads.<br>
-        Get a free key (no credit card) at <a href="https://www.assemblyai.com" target="_blank">assemblyai.com</a> — takes about 1 minute.
+    <div class="d-handle"></div>
+    <div class="d-title">⚙️ Settings</div>
+
+    <div class="d-section">
+      <label for="sdKey">Supadata API Key <span style="color:var(--green);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em"> — for YouTube, Instagram, Facebook</span></label>
+      <input type="password" id="sdKey" class="d-input" placeholder="Enter your Supadata key…" autocomplete="off" spellcheck="false">
+      <p class="d-hint">
+        Free tier — no credit card. Sign up at
+        <a href="https://supadata.ai" target="_blank">supadata.ai</a>
+        and copy your API key from the dashboard.
       </p>
     </div>
-    <button class="drawer-save" onclick="saveSettings()">Save Settings</button>
+
+    <div class="d-section">
+      <label for="aaiKey">AssemblyAI API Key <span style="color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em"> — for file uploads</span></label>
+      <input type="password" id="aaiKey" class="d-input" placeholder="Optional — for file uploads…" autocomplete="off" spellcheck="false">
+      <p class="d-hint">
+        Free tier available at
+        <a href="https://www.assemblyai.com" target="_blank">assemblyai.com</a>.
+        Only needed if you upload video/audio files directly.
+      </p>
+    </div>
+
+    <button class="d-save" onclick="saveSettings()">Save Settings</button>
   </div>
 
-  <!-- Toast -->
   <div class="toast" id="toast"></div>
 
   <script>
-    // ── State ─────────────────────────────────────────────────────────────────
-    let selectedFile = null;
-    let currentMode = 'url'; // 'url' | 'file'
-    let lastTranscript = null; // { text, words }
+    // ── Constants ──────────────────────────────────────────────────────────────
+    const SD_BASE  = 'https://api.supadata.ai/v1';
+    const AAI_BASE = 'https://api.assemblyai.com/v2';
+    const CORS_PROXY = 'https://proxy.cors.sh/';
+    const POLL_MS  = 4000;
+    const POLL_MAX = 420000; // 7 min
 
-    // ── Init ──────────────────────────────────────────────────────────────────
+    // ── State ──────────────────────────────────────────────────────────────────
+    let selFile  = null;
+    let mode     = 'url'; // 'url' | 'file'
+    let chunks   = [];    // [{text, offset}]  — stored for re-render & copy
+    let pollTmr  = null;
+    let pollDeadline = 0;
+
+    // ── Init ───────────────────────────────────────────────────────────────────
     (function init() {
-      // Restore toggle state
-      if (localStorage.getItem('show_ts') === '1') {
-        document.getElementById('tsToggle').checked = true;
-      }
+      const sdKey  = ls('sd_key');
+      const aaiKey = ls('aai_key');
+      const showTs = ls('show_ts') === '1';
 
-      // Restore API key
-      const key = localStorage.getItem('aai_key');
-      if (key) document.getElementById('apiKeyInput').value = key;
+      if (sdKey)  document.getElementById('sdKey').value  = sdKey;
+      if (aaiKey) document.getElementById('aaiKey').value = aaiKey;
+      if (showTs) {
+        document.getElementById('tsToggle').checked = true;
+        document.getElementById('txBody').dataset.ts = 'true';
+      }
 
       // Install banner
-      if (!localStorage.getItem('banner_dismissed')) {
+      if (!ls('banner_gone')) {
         const ua = navigator.userAgent;
-        const banner = document.getElementById('installBanner');
-        const body = document.getElementById('installBody');
-
+        const el  = document.getElementById('installBanner');
+        const bod = document.getElementById('bannerBody');
         if (/iPhone|iPad|iPod/.test(ua) && !/CriOS|FxiOS/.test(ua)) {
-          body.innerHTML = 'In Safari: tap the <strong>Share</strong> button then <strong>Add to Home Screen</strong> — it works like a native app!';
-          banner.style.display = 'block';
+          bod.innerHTML = 'In Safari: tap the <strong>Share ↑</strong> button, then <strong>Add to Home Screen</strong>.';
+          el.style.display = 'block';
         } else if (/Android/.test(ua)) {
-          body.innerHTML = 'In Chrome: tap the <strong>⋮ menu</strong> then <strong>Add to Home Screen</strong> — it works like a native app!';
-          banner.style.display = 'block';
+          bod.innerHTML = 'In Chrome: tap the <strong>⋮ menu</strong>, then <strong>Add to Home Screen</strong>.';
+          el.style.display = 'block';
         }
       }
 
-      // PWA manifest (blob so everything stays in one file)
+      // PWA manifest via blob URL
       try {
-        const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#0d1117"/><text x="50" y="68" font-size="58" text-anchor="middle">🎙️</text></svg>`;
-        const manifest = {
-          name: 'TranscribeIt',
-          short_name: 'TranscribeIt',
+        const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#0d1117"/><text x="50" y="68" font-size="56" text-anchor="middle">🎙️</text></svg>`;
+        const mf = {
+          name: 'TranscribeIt', short_name: 'TranscribeIt',
           description: 'Transcribe YouTube, Instagram & Facebook videos',
-          start_url: './',
-          display: 'standalone',
-          background_color: '#0d1117',
-          theme_color: '#0d1117',
+          start_url: './', display: 'standalone',
+          background_color: '#0d1117', theme_color: '#0d1117',
           icons: [{ src: `data:image/svg+xml,${encodeURIComponent(icon)}`, sizes: 'any', type: 'image/svg+xml' }]
         };
-        const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const blob = new Blob([JSON.stringify(mf)], { type: 'application/json' });
         document.getElementById('manifest-link').href = URL.createObjectURL(blob);
-      } catch (_) {}
+      } catch(_) {}
+
+      // Resume pending poll if user navigated away (e.g. switched apps on iPhone)
+      const pJob = sessionStorage.getItem('pendingJob');
+      const pSvc = sessionStorage.getItem('pendingJobSvc');
+      if (pJob && pSvc) resumePoll(pJob, pSvc);
     })();
 
-    // ── Dismiss banner ────────────────────────────────────────────────────────
-    function dismissBanner() {
-      localStorage.setItem('banner_dismissed', '1');
-      document.getElementById('installBanner').style.display = 'none';
-    }
-
-    // ── Platform detection ────────────────────────────────────────────────────
-    function detectPlatform(url) {
-      if (/youtube\.com|youtu\.be/.test(url)) return 'youtube';
-      if (/instagram\.com/.test(url)) return 'instagram';
-      if (/facebook\.com|fb\.watch/.test(url)) return 'facebook';
-      return 'other';
-    }
-
-    function extractYouTubeId(url) {
-      const m = url.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
-      return m ? m[1] : null;
-    }
-
-    // ── URL input change ──────────────────────────────────────────────────────
-    function onUrlChange() {
-      const url = document.getElementById('urlInput').value.trim();
-      const badgeRow = document.getElementById('badgeRow');
-      const note = document.getElementById('urlNote');
-
-      selectedFile = null;
-      currentMode = 'url';
-      document.getElementById('uploadTitle').textContent = 'Upload video or audio';
-
-      if (!url) {
-        badgeRow.style.display = 'none';
-        note.style.display = 'none';
-        updateBtn();
-        return;
+    // Visibility change: resume poll when app comes back to foreground
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        const pJob = sessionStorage.getItem('pendingJob');
+        const pSvc = sessionStorage.getItem('pendingJobSvc');
+        if (pJob && pSvc && !pollTmr) resumePoll(pJob, pSvc);
       }
-
-      const p = detectPlatform(url);
-      const info = {
-        youtube:   { cls: 'yt', label: '▶ YouTube' },
-        instagram: { cls: 'ig', label: '📸 Instagram' },
-        facebook:  { cls: 'fb', label: 'f Facebook' },
-        other:     { cls: 'other', label: '🔗 URL' }
-      }[p];
-
-      badgeRow.innerHTML = `<span class="badge ${info.cls}">${info.label}</span>`;
-      badgeRow.style.display = 'block';
-
-      const hasKey = !!localStorage.getItem('aai_key');
-
-      if (p === 'youtube') {
-        note.innerHTML = '<strong>YouTube — no API key needed</strong>Fetches existing captions/subtitles automatically.';
-        note.style.display = 'block';
-      } else if (p === 'instagram' || p === 'facebook') {
-        const platform = p === 'instagram' ? 'Instagram' : 'Facebook';
-        if (hasKey) {
-          note.innerHTML = `<strong>${platform} detected</strong>Paste the <em>direct .mp4 video URL</em>, or download the video and use the upload option below.`;
-        } else {
-          note.innerHTML = `<strong>${platform} detected</strong>Tap <strong>⚙️ Settings</strong> to add your free <a href="https://www.assemblyai.com" target="_blank">AssemblyAI</a> key, then paste a direct .mp4 URL or upload the file.`;
-        }
-        note.style.display = 'block';
-      } else {
-        note.style.display = 'none';
-      }
-
-      updateBtn();
-    }
-
-    async function pasteUrl() {
-      try {
-        const text = await navigator.clipboard.readText();
-        document.getElementById('urlInput').value = text;
-        onUrlChange();
-      } catch (_) {
-        document.getElementById('urlInput').focus();
-        document.getElementById('urlInput').select();
-      }
-    }
-
-    // ── File select ───────────────────────────────────────────────────────────
-    function onFileSelect(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      selectedFile = file;
-      currentMode = 'file';
-      document.getElementById('urlInput').value = '';
-      document.getElementById('badgeRow').style.display = 'none';
-      document.getElementById('urlNote').style.display = 'none';
-      document.getElementById('uploadTitle').textContent = `📎 ${file.name}`;
-      updateBtn();
-    }
-
-    // Drag & drop
-    const zone = document.getElementById('uploadZone');
-    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
-    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
-    zone.addEventListener('drop', e => {
-      e.preventDefault();
-      zone.classList.remove('drag-over');
-      const file = e.dataTransfer.files[0];
-      if (!file) return;
-      selectedFile = file;
-      currentMode = 'file';
-      document.getElementById('urlInput').value = '';
-      document.getElementById('badgeRow').style.display = 'none';
-      document.getElementById('urlNote').style.display = 'none';
-      document.getElementById('uploadTitle').textContent = `📎 ${file.name}`;
-      updateBtn();
     });
 
-    function updateBtn() {
-      const hasUrl = document.getElementById('urlInput').value.trim().length > 5;
-      const hasFile = selectedFile !== null;
-      document.getElementById('submitBtn').disabled = !hasUrl && !hasFile;
+    function resumePoll(jobId, svc) {
+      showStatus(true);
+      setStatus('Resuming…', 'Checking transcription status', 60);
+      if (svc === 'supadata') startSdPoll(jobId);
+      else                    startAaiPoll(jobId);
     }
 
-    // ── Timestamp toggle ──────────────────────────────────────────────────────
-    function onTsToggle() {
-      const on = document.getElementById('tsToggle').checked;
-      localStorage.setItem('show_ts', on ? '1' : '0');
-      if (lastTranscript) renderTranscript(lastTranscript);
-    }
-
-    // ── Settings ──────────────────────────────────────────────────────────────
-    function openSettings() {
-      document.getElementById('overlay').classList.add('show');
-      document.getElementById('drawer').classList.add('open');
-    }
-    function closeSettings() {
-      document.getElementById('overlay').classList.remove('show');
-      document.getElementById('drawer').classList.remove('open');
-    }
-    function saveSettings() {
-      const key = document.getElementById('apiKeyInput').value.trim();
-      if (key) localStorage.setItem('aai_key', key);
-      else localStorage.removeItem('aai_key');
-      closeSettings();
-      showToast('Settings saved ✓');
-      onUrlChange(); // refresh note
-    }
-
-    // ── Helpers ───────────────────────────────────────────────────────────────
+    // ── Helpers ────────────────────────────────────────────────────────────────
+    const ls   = k => localStorage.getItem(k);
+    const lsSet = (k,v) => localStorage.setItem(k, v);
     const sleep = ms => new Promise(r => setTimeout(r, ms));
+    const $ = id => document.getElementById(id);
 
     function fmt(ms) {
       const s = Math.floor(ms / 1000);
@@ -880,277 +716,452 @@
     const pad = n => String(n).padStart(2, '0');
 
     function setStatus(title, sub, pct) {
-      document.getElementById('statusTitle').textContent = title;
-      document.getElementById('statusSub').textContent = sub;
-      if (pct !== undefined) document.getElementById('progressFill').style.width = pct + '%';
+      $('sTitle').textContent = title;
+      $('sSub').textContent   = sub;
+      if (pct !== undefined) $('progFill').style.width = pct + '%';
     }
 
-    function showStatus(show) {
-      document.getElementById('statusCard').classList.toggle('show', show);
+    function showStatus(on) {
+      $('statusCard').classList.toggle('show', on);
     }
 
     function showError(html) {
       showStatus(false);
-      document.getElementById('errorBody').innerHTML = html;
-      document.getElementById('errorCard').classList.add('show');
+      $('errBody').innerHTML = html;
+      $('errCard').classList.add('show');
     }
 
-    function hideError() {
-      document.getElementById('errorCard').classList.remove('show');
-    }
+    function hideError() { $('errCard').classList.remove('show'); }
 
     function showToast(msg) {
-      const el = document.getElementById('toast');
+      const el = $('toast');
       el.textContent = msg;
       el.classList.add('show');
-      setTimeout(() => el.classList.remove('show'), 2200);
+      setTimeout(() => el.classList.remove('show'), 2300);
     }
 
-    // ── Render transcript ─────────────────────────────────────────────────────
-    function renderTranscript(data) {
-      const withTs = document.getElementById('tsToggle').checked;
-      const el = document.getElementById('transcriptBody');
+    function updateBtn() {
+      const hasUrl  = $('urlInput').value.trim().length > 5;
+      const hasFile = selFile !== null;
+      $('goBtn').disabled = !hasUrl && !hasFile;
+    }
 
-      if (!withTs || !data.words || data.words.length === 0) {
-        el.textContent = data.text || '(empty transcript)';
-        return;
+    function stopPoll() {
+      if (pollTmr) { clearTimeout(pollTmr); pollTmr = null; }
+      sessionStorage.removeItem('pendingJob');
+      sessionStorage.removeItem('pendingJobSvc');
+    }
+
+    function storePoll(jobId, svc) {
+      sessionStorage.setItem('pendingJob', jobId);
+      sessionStorage.setItem('pendingJobSvc', svc);
+    }
+
+    // ── Banner / Settings ──────────────────────────────────────────────────────
+    function dismissBanner() {
+      lsSet('banner_gone', '1');
+      $('installBanner').style.display = 'none';
+    }
+
+    function openSettings()  { $('overlay').classList.add('show'); $('drawer').classList.add('open'); }
+    function closeSettings() { $('overlay').classList.remove('show'); $('drawer').classList.remove('open'); }
+
+    function saveSettings() {
+      const sd  = $('sdKey').value.trim();
+      const aai = $('aaiKey').value.trim();
+      if (sd)  lsSet('sd_key', sd);  else localStorage.removeItem('sd_key');
+      if (aai) lsSet('aai_key', aai); else localStorage.removeItem('aai_key');
+      closeSettings();
+      showToast('Settings saved ✓');
+      onUrlChange();
+    }
+
+    // ── URL input ──────────────────────────────────────────────────────────────
+    function detectPlatform(url) {
+      if (/youtube\.com|youtu\.be/.test(url)) return 'youtube';
+      if (/instagram\.com/.test(url))          return 'instagram';
+      if (/facebook\.com|fb\.watch/.test(url)) return 'facebook';
+      return 'other';
+    }
+
+    function onUrlChange() {
+      const url = $('urlInput').value.trim();
+      const br  = $('badgeRow');
+      const nt  = $('urlNote');
+      selFile = null; mode = 'url';
+      $('upTitle').textContent = 'Upload video or audio';
+      $('aaiNote').style.display = 'none';
+
+      if (!url) { br.style.display = 'none'; nt.style.display = 'none'; updateBtn(); return; }
+
+      const p = detectPlatform(url);
+      const map = {
+        youtube:   { cls: 'yt', lbl: '▶ YouTube' },
+        instagram: { cls: 'ig', lbl: '📸 Instagram' },
+        facebook:  { cls: 'fb', lbl: 'f Facebook' },
+        other:     { cls: 'ok', lbl: '🔗 URL' }
+      };
+      const m = map[p];
+      br.innerHTML = `<span class="badge ${m.cls}">${m.lbl}</span>`;
+      br.style.display = 'flex';
+
+      const hasKey = !!ls('sd_key');
+      if (!hasKey) {
+        nt.innerHTML = `<strong>Supadata key needed</strong>Tap <strong>⚙️ Settings</strong> (top right) to add your free key from <a href="https://supadata.ai" target="_blank">supadata.ai</a>. It takes under a minute.`;
+        nt.style.display = 'block';
+      } else if (p === 'youtube') {
+        nt.innerHTML = '<strong>YouTube — ready</strong>Captions will be fetched automatically.';
+        nt.style.display = 'block';
+      } else if (p === 'instagram' || p === 'facebook') {
+        nt.innerHTML = `<strong>${p === 'instagram' ? 'Instagram' : 'Facebook'} — ready</strong>The video will be transcribed via Supadata. Make sure it is a <em>public</em> post.`;
+        nt.style.display = 'block';
+      } else {
+        nt.style.display = 'none';
       }
+      updateBtn();
+    }
 
-      el.innerHTML = '';
-      const CHUNK = 30000; // 30 s
-      let chunks = [];
-      let cur = null;
+    async function pasteUrl() {
+      try {
+        const t = await navigator.clipboard.readText();
+        $('urlInput').value = t;
+        onUrlChange();
+      } catch(_) { $('urlInput').focus(); }
+    }
 
-      for (const w of data.words) {
-        if (!cur || (w.start - cur.start) >= CHUNK) {
-          cur = { start: w.start, texts: [] };
-          chunks.push(cur);
-        }
-        cur.texts.push(w.text);
-      }
+    // ── File ───────────────────────────────────────────────────────────────────
+    function onFile(e) {
+      const f = e.target.files[0]; if (!f) return;
+      selFile = f; mode = 'file';
+      $('urlInput').value = '';
+      $('badgeRow').style.display = 'none';
+      $('urlNote').style.display  = 'none';
+      $('upTitle').textContent = `📎 ${f.name}`;
+      $('aaiNote').style.display = 'block';
+      updateBtn();
+    }
+
+    const upZone = $('upZone');
+    upZone.addEventListener('dragover', e => { e.preventDefault(); upZone.classList.add('drag'); });
+    upZone.addEventListener('dragleave', () => upZone.classList.remove('drag'));
+    upZone.addEventListener('drop', e => {
+      e.preventDefault(); upZone.classList.remove('drag');
+      const f = e.dataTransfer.files[0]; if (!f) return;
+      selFile = f; mode = 'file';
+      $('urlInput').value = ''; $('badgeRow').style.display = 'none'; $('urlNote').style.display = 'none';
+      $('upTitle').textContent = `📎 ${f.name}`;
+      $('aaiNote').style.display = 'block';
+      updateBtn();
+    });
+
+    // ── Timestamp toggle ───────────────────────────────────────────────────────
+    function onTsToggle() {
+      const on = $('tsToggle').checked;
+      lsSet('show_ts', on ? '1' : '0');
+      $('txBody').dataset.ts = on ? 'true' : 'false';
+      // No re-render needed — CSS handles visibility
+    }
+
+    // ── Transcript render ──────────────────────────────────────────────────────
+    function renderChunks() {
+      const el   = $('txBody');
+      const frag = document.createDocumentFragment();
 
       for (const c of chunks) {
         const div = document.createElement('div');
-        div.className = 'ts-chunk';
-        div.innerHTML = `<div class="ts-label">[${fmt(c.start)}]</div><div class="ts-text">${escHtml(c.texts.join(' '))}</div>`;
-        el.appendChild(div);
-      }
-    }
+        div.className = 'chunk';
 
-    function escHtml(s) {
-      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
-
-    async function copyTranscript() {
-      if (!lastTranscript) return;
-      const withTs = document.getElementById('tsToggle').checked;
-      let text = '';
-
-      if (!withTs || !lastTranscript.words?.length) {
-        text = lastTranscript.text || '';
-      } else {
-        const CHUNK = 30000;
-        let chunks = [];
-        let cur = null;
-        for (const w of lastTranscript.words) {
-          if (!cur || (w.start - cur.start) >= CHUNK) {
-            cur = { start: w.start, texts: [] };
-            chunks.push(cur);
-          }
-          cur.texts.push(w.text);
+        if (c.offset !== null && c.offset !== undefined) {
+          const ts = document.createElement('div');
+          ts.className = 'ts';
+          ts.textContent = fmt(c.offset);
+          div.appendChild(ts);
         }
-        text = chunks.map(c => `[${fmt(c.start)}] ${c.texts.join(' ')}`).join('\n\n');
+        const txt = document.createElement('div');
+        txt.className = 'chunk-txt';
+        txt.textContent = c.text;
+        div.appendChild(txt);
+
+        frag.appendChild(div);
       }
+      el.innerHTML = '';
+      el.appendChild(frag);
+
+      $('txCard').classList.add('show');
+    }
+
+    async function doCopy() {
+      if (!chunks.length) return;
+      const withTs = $('tsToggle').checked;
+      const text = chunks.map(c => {
+        const ts = (withTs && c.offset != null) ? `[${fmt(c.offset)}] ` : '';
+        return ts + c.text;
+      }).join('\n\n');
 
       try {
         await navigator.clipboard.writeText(text);
-        const btn = document.getElementById('copyBtn');
+        const btn = $('copyBtn');
         btn.classList.add('ok');
-        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
         setTimeout(() => {
           btn.classList.remove('ok');
-          btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`;
+          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`;
         }, 2500);
-      } catch (_) {
-        showToast('Long-press the transcript to copy manually');
-      }
+      } catch(_) { showToast('Select text manually to copy'); }
     }
 
-    // ── Entry point ───────────────────────────────────────────────────────────
-    async function startTranscription() {
-      const url = document.getElementById('urlInput').value.trim();
-      const btn = document.getElementById('submitBtn');
-
-      btn.disabled = true;
-      document.getElementById('transcriptCard').classList.remove('show');
+    // ── Main entry ─────────────────────────────────────────────────────────────
+    async function run() {
+      const url = $('urlInput').value.trim();
+      $('goBtn').disabled = true;
+      $('txCard').classList.remove('show');
       hideError();
-      document.getElementById('progressFill').style.width = '0%';
+      chunks = [];
+      $('progFill').style.width = '0%';
 
       try {
         showStatus(true);
         setStatus('Starting…', 'Detecting source', 8);
 
-        let data;
-
-        if (currentMode === 'file' && selectedFile) {
-          data = await runAssemblyAI(null, selectedFile);
+        if (mode === 'file' && selFile) {
+          await runAai(null, selFile);
         } else {
-          const p = detectPlatform(url);
-          if (p === 'youtube') {
-            data = await runYouTube(url);
-          } else {
-            data = await runAssemblyAI(url, null);
-          }
+          await runSupadata(url);
         }
-
-        showStatus(false);
-
-        if (data) {
-          lastTranscript = data;
-          renderTranscript(data);
-          document.getElementById('transcriptCard').classList.add('show');
-        }
-      } catch (err) {
-        showError(err.message || 'An unexpected error occurred.');
+      } catch(err) {
+        showError(err.message || 'Unexpected error. Please try again.');
       } finally {
-        btn.disabled = false;
+        $('goBtn').disabled = false;
         updateBtn();
       }
     }
 
-    // ── YouTube ───────────────────────────────────────────────────────────────
-    async function runYouTube(url) {
-      const id = extractYouTubeId(url);
-      if (!id) throw new Error('Could not read the YouTube video ID from that URL. Make sure it is a valid YouTube link.');
-
-      setStatus('Fetching captions…', 'Looking up YouTube subtitles', 25);
-
-      // Try several caption tracks
-      const tracks = [
-        { lang: 'en',    asr: false },
-        { lang: 'en-US', asr: false },
-        { lang: 'en-GB', asr: false },
-        { lang: 'en',    asr: true  }, // auto-generated
-      ];
-
-      for (const t of tracks) {
-        try {
-          setStatus('Fetching captions…', `Trying ${t.lang}${t.asr ? ' (auto-generated)' : ''}`, 40);
-          const data = await fetchYTCaptions(id, t.lang, t.asr);
-          if (data) {
-            setStatus('Done!', 'Captions loaded', 100);
-            return data;
-          }
-        } catch (_) {}
-      }
-
-      throw new Error(
-        'No captions found for this YouTube video.<br><br>' +
-        '<strong>Possible reasons:</strong><br>' +
-        '• The video has no captions or auto-subtitles<br>' +
-        '• The video is age-restricted or private<br><br>' +
-        'Try using the <strong>file upload</strong> option with your AssemblyAI key instead.'
+    // ── Supadata (YouTube / Instagram / Facebook / any URL) ────────────────────
+    async function runSupadata(url) {
+      const key = ls('sd_key');
+      if (!key) throw new Error(
+        'A <strong>Supadata API key</strong> is required.<br><br>' +
+        'Tap <strong>⚙️ Settings</strong> to add your key.<br>' +
+        'Get one free (no card) at <a href="https://supadata.ai" target="_blank">supadata.ai</a>.'
       );
-    }
 
-    async function fetchYTCaptions(videoId, lang, asr) {
-      const ytUrl = `https://www.youtube.com/api/timedtext?v=${videoId}&lang=${lang}&fmt=json3${asr ? '&kind=asr' : ''}`;
-      const proxied = `https://corsproxy.io/?url=${encodeURIComponent(ytUrl)}`;
-      const res = await fetch(proxied, { signal: AbortSignal.timeout(12000) });
-      if (!res.ok) return null;
+      setStatus('Fetching transcript…', 'Contacting Supadata', 20);
 
-      let json;
-      try { json = await res.json(); } catch (_) { return null; }
-      if (!json.events || json.events.length === 0) return null;
+      const endpoint = `${SD_BASE}/transcript?url=${encodeURIComponent(url)}&text=false`;
+      let res;
 
-      const words = [];
-      const textParts = [];
-
-      for (const ev of json.events) {
-        if (!ev.segs) continue;
-        const seg = ev.segs.map(s => (s.utf8 || '').replace(/\n/g, ' ')).join('').trim();
-        if (!seg) continue;
-        textParts.push(seg);
-        words.push({ text: seg, start: ev.tStartMs ?? 0, end: (ev.tStartMs ?? 0) + (ev.dDurationMs ?? 2000) });
+      // Try direct first, then CORS proxy if blocked
+      try {
+        res = await fetchWithTimeout(endpoint, {
+          headers: { 'x-api-key': key }
+        }, 15000);
+      } catch(netErr) {
+        // Network error — try CORS proxy
+        setStatus('Fetching transcript…', 'Retrying via proxy…', 25);
+        res = await fetchWithTimeout(CORS_PROXY + endpoint, {
+          headers: { 'x-api-key': key, 'x-cors-api-key': 'temp_...' }
+        }, 15000);
       }
 
-      if (textParts.length === 0) return null;
-      return { text: textParts.join(' '), words };
-    }
-
-    // ── AssemblyAI ────────────────────────────────────────────────────────────
-    async function runAssemblyAI(audioUrl, file) {
-      const key = localStorage.getItem('aai_key');
-      if (!key) {
-        throw new Error(
-          'An <strong>AssemblyAI API key</strong> is required for this.<br><br>' +
-          'Tap <strong>⚙️ Settings</strong> (top right) to add your key.<br>' +
-          'Get one free — no credit card — at <a href="https://www.assemblyai.com" target="_blank">assemblyai.com</a>'
-        );
+      if (res.status === 202) {
+        // Async job — long video
+        const body = await res.json();
+        const jobId = body.id;
+        if (!jobId) throw new Error('Supadata did not return a job ID. Please try again.');
+        storePoll(jobId, 'supadata');
+        setStatus('Queued…', 'Video is being processed (may take 1–3 min)', 35);
+        await startSdPoll(jobId);
+        return;
       }
 
-      let submitUrl = audioUrl;
+      if (!res.ok) {
+        const e = await res.json().catch(() => ({}));
+        throwApiError(res.status, e.message || e.error || 'Unknown error from Supadata');
+      }
 
-      // Upload file first if needed
+      const data = await res.json();
+      handleSdData(data);
+      showStatus(false);
+    }
+
+    function handleSdData(data) {
+      // Supadata returns { content: [{text, offset, duration}] | string, lang }
+      if (Array.isArray(data.content)) {
+        chunks = data.content.map(c => ({ text: c.text, offset: c.offset ?? null }));
+      } else if (typeof data.content === 'string') {
+        chunks = [{ text: data.content, offset: null }];
+      } else if (typeof data.text === 'string') {
+        chunks = [{ text: data.text, offset: null }];
+      } else {
+        throw new Error('Unexpected response format from Supadata.');
+      }
+      if (!chunks.length) throw new Error('The transcript came back empty. The video may not have audio or captions.');
+      setStatus('Done! ✓', 'Transcript ready', 100);
+      renderChunks();
+      showStatus(false);
+    }
+
+    async function startSdPoll(jobId) {
+      const key = ls('sd_key');
+      pollDeadline = Date.now() + POLL_MAX;
+      let attempt = 0;
+
+      return new Promise((resolve, reject) => {
+        function tick() {
+          if (Date.now() > pollDeadline) {
+            stopPoll();
+            reject(new Error('Transcription timed out after 7 minutes. The video may be too long or the service is busy — please try again later.'));
+            return;
+          }
+          attempt++;
+          const elapsed = Math.floor(attempt * POLL_MS / 1000);
+          setStatus('Processing…', `Still working… (${elapsed}s elapsed)`, Math.min(88, 38 + attempt * 0.5));
+
+          fetch(`${SD_BASE}/transcript/${jobId}`, { headers: { 'x-api-key': key } })
+            .then(r => r.json())
+            .then(data => {
+              const st = data.status;
+              if (!st || st === 'completed' || Array.isArray(data.content) || typeof data.content === 'string') {
+                stopPoll();
+                handleSdData(data);
+                resolve();
+              } else if (st === 'error' || st === 'failed') {
+                stopPoll();
+                reject(new Error(data.error || data.message || 'Transcription failed on Supadata servers.'));
+              } else {
+                pollTmr = setTimeout(tick, POLL_MS);
+              }
+            })
+            .catch(err => {
+              // Network hiccup — keep polling
+              pollTmr = setTimeout(tick, POLL_MS * 2);
+            });
+        }
+        pollTmr = setTimeout(tick, POLL_MS);
+      });
+    }
+
+    // ── AssemblyAI (file uploads) ──────────────────────────────────────────────
+    async function runAai(audioUrl, file) {
+      const key = ls('aai_key');
+      if (!key) throw new Error(
+        'An <strong>AssemblyAI API key</strong> is needed for file uploads.<br><br>' +
+        'Tap <strong>⚙️ Settings</strong> to add it.<br>' +
+        'Free tier available at <a href="https://www.assemblyai.com" target="_blank">assemblyai.com</a>.'
+      );
+
+      let uploadUrl = audioUrl;
+
       if (file) {
-        setStatus('Uploading file…', `${file.name} (${(file.size / 1048576).toFixed(1)} MB)`, 15);
-        const upRes = await fetch('https://api.assemblyai.com/v2/upload', {
+        setStatus('Uploading…', `${file.name} (${(file.size / 1048576).toFixed(1)} MB)`, 15);
+        const up = await fetchWithTimeout(`${AAI_BASE}/upload`, {
           method: 'POST',
           headers: { authorization: key },
-          body: file,
-          signal: AbortSignal.timeout(120000)
-        });
-        if (!upRes.ok) {
-          const e = await upRes.json().catch(() => ({}));
-          throw new Error(e.error || `Upload failed (HTTP ${upRes.status}). Check your API key.`);
+          body: file
+        }, 120000);
+        if (!up.ok) {
+          const e = await up.json().catch(() => ({}));
+          throw new Error(e.error || `Upload failed (HTTP ${up.status}). Check your AssemblyAI key.`);
         }
-        const up = await upRes.json();
-        submitUrl = up.upload_url;
-        setStatus('File uploaded ✓', 'Starting transcription…', 35);
-      } else {
-        setStatus('Submitting URL…', 'Sending to AssemblyAI', 20);
+        uploadUrl = (await up.json()).upload_url;
+        setStatus('Uploaded ✓', 'Starting transcription…', 35);
       }
 
-      // Create transcript
-      const subRes = await fetch('https://api.assemblyai.com/v2/transcript', {
+      const sub = await fetchWithTimeout(`${AAI_BASE}/transcript`, {
         method: 'POST',
         headers: { authorization: key, 'content-type': 'application/json' },
-        body: JSON.stringify({ audio_url: submitUrl, language_detection: true }),
-        signal: AbortSignal.timeout(15000)
+        body: JSON.stringify({ audio_url: uploadUrl, language_detection: true })
+      }, 15000);
+      if (!sub.ok) {
+        const e = await sub.json().catch(() => ({}));
+        throw new Error(e.error || `Could not start transcription (HTTP ${sub.status}).`);
+      }
+      const { id } = await sub.json();
+      storePoll(id, 'assemblyai');
+      setStatus('Transcribing…', 'Processing audio…', 45);
+      await startAaiPoll(id);
+    }
+
+    async function startAaiPoll(id) {
+      const key = ls('aai_key');
+      pollDeadline = Date.now() + POLL_MAX;
+      let attempt = 0;
+
+      return new Promise((resolve, reject) => {
+        function tick() {
+          if (Date.now() > pollDeadline) {
+            stopPoll();
+            reject(new Error('Transcription timed out after 7 minutes. Please try again.'));
+            return;
+          }
+          attempt++;
+          const elapsed = Math.floor(attempt * POLL_MS / 1000);
+
+          fetch(`${AAI_BASE}/transcript/${id}`, { headers: { authorization: key } })
+            .then(r => r.json())
+            .then(data => {
+              if (data.status === 'completed') {
+                stopPoll();
+                // Convert AAI words → chunks (30-second groups)
+                chunks = aaiWordsToChunks(data.words || [], data.text || '');
+                setStatus('Done! ✓', 'Transcript ready', 100);
+                renderChunks();
+                showStatus(false);
+                resolve();
+              } else if (data.status === 'error') {
+                stopPoll();
+                reject(new Error(data.error || 'Transcription failed.'));
+              } else {
+                const pct = data.status === 'queued' ? 48 : Math.min(90, 50 + attempt * 0.4);
+                const sub = data.status === 'queued' ? `Queued… (${elapsed}s)` : `Processing… (${elapsed}s)`;
+                setStatus('Transcribing…', sub, pct);
+                pollTmr = setTimeout(tick, POLL_MS);
+              }
+            })
+            .catch(() => { pollTmr = setTimeout(tick, POLL_MS * 2); });
+        }
+        pollTmr = setTimeout(tick, POLL_MS);
       });
-      if (!subRes.ok) {
-        const e = await subRes.json().catch(() => ({}));
-        throw new Error(e.error || `Could not start transcription (HTTP ${subRes.status}). Check your API key and URL.`);
-      }
-      const { id } = await subRes.json();
-      setStatus('Transcribing…', 'Processing audio (this may take a minute)', 45);
+    }
 
-      // Poll
-      const MAX = 140; // ~7 min
-      for (let i = 0; i < MAX; i++) {
-        await sleep(3000);
-        const pollRes = await fetch(`https://api.assemblyai.com/v2/transcript/${id}`, {
-          headers: { authorization: key },
-          signal: AbortSignal.timeout(10000)
-        });
-        const d = await pollRes.json();
-
-        if (d.status === 'completed') {
-          setStatus('Done! ✓', 'Transcription complete', 100);
-          return { text: d.text || '', words: d.words || [] };
+    function aaiWordsToChunks(words, fullText) {
+      if (!words.length) return [{ text: fullText, offset: null }];
+      const CHUNK_MS = 30000;
+      const result = [];
+      let cur = null;
+      for (const w of words) {
+        if (!cur || (w.start - cur.start) >= CHUNK_MS) {
+          cur = { start: w.start, texts: [] };
+          result.push(cur);
         }
-        if (d.status === 'error') {
-          throw new Error(`Transcription failed: ${d.error || 'Unknown error from AssemblyAI'}`);
-        }
-
-        const pct = d.status === 'queued' ? 48 : Math.min(92, 50 + i * 0.45);
-        const sub = d.status === 'queued'
-          ? `Queued — waiting for a free processor… (${i * 3}s)`
-          : `Processing… (${i * 3}s elapsed)`;
-        setStatus('Transcribing…', sub, pct);
+        cur.texts.push(w.text);
       }
+      return result.map(c => ({ text: c.texts.join(' '), offset: c.start }));
+    }
 
-      throw new Error('Transcription timed out (7 minutes). The file may be too large or the service is busy — please try again.');
+    // ── Fetch with timeout ─────────────────────────────────────────────────────
+    async function fetchWithTimeout(url, opts = {}, ms = 15000) {
+      const ctrl = new AbortController();
+      const tid = setTimeout(() => ctrl.abort(), ms);
+      try {
+        return await fetch(url, { ...opts, signal: ctrl.signal });
+      } catch(e) {
+        if (e.name === 'AbortError') throw new Error('Request timed out. Check your internet connection.');
+        throw e;
+      } finally {
+        clearTimeout(tid);
+      }
+    }
+
+    function throwApiError(status, msg) {
+      const hints = {
+        401: 'Invalid API key — check your key in ⚙️ Settings.',
+        402: 'API quota reached. Upgrade at <a href="https://supadata.ai" target="_blank">supadata.ai</a>.',
+        403: 'Access denied. The key may be invalid or the video is private.',
+        404: 'Transcript not found. The video may be private, age-restricted, or have no captions.',
+        429: 'Too many requests. Wait a moment and try again.',
+      };
+      throw new Error(hints[status] || `Error ${status}: ${msg}`);
     }
   </script>
 </body>
